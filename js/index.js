@@ -119,7 +119,7 @@ offscreenCanvas.height = MAP_HEIGHT
 const player = new Player({
   x: 100,
   y: 100,
-  size: 16,
+  size: 32,
   velocity: { x: 0, y: 0 },
 })
 
@@ -174,9 +174,9 @@ function animate(backgroundCanvas) {
 
   c.drawImage(backgroundCanvas, 0, 0)
   player.draw(c)
-  c.fillRect(SCROLL_POST_X,150,10,200)
-  c.fillRect(300,SCROLL_POST_Y,100,10)
-  c.fillRect(300,SCROLL_POST_B,100,10)
+  // c.fillRect(SCROLL_POST_X,150,10,200)
+  // c.fillRect(300,SCROLL_POST_Y,100,10)
+  // c.fillRect(300,SCROLL_POST_B,100,10)
   c.restore()
 
   requestAnimationFrame(() => animate(backgroundCanvas))

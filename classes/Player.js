@@ -10,17 +10,87 @@ class Player {
     this.height = size
     this.velocity = velocity
     this.isOnGround = false
-    // this.image=new Image()
+    this.isImageloaded=false
+    this.image=new Image()
+    this.image.onload=()=>{
+      this.isImageloaded=true
+    }
+    this.image.src='./images/player.png'
+    this.elapsedTime=0
+    this.currentFrame=0
+    this.sprites={
+      idle:{
+        x:0,
+        y:0,
+        width:32,
+        height:32,
+        frames:4,
+      },
+      run:{
+        x:0,
+        y:32,
+        width:32,
+        height:32,
+        frames:6,
+      },
+      jump:{
+        x:0,
+        y:32*5,
+        width:32,
+        height:32,
+        frames:1,
+      },
+      fall:{
+        x:32,
+        y:32*5,
+        width:32,
+        height:32,
+        frames:1,
+      },
+    }
+    this.currentSprite=this.sprites.run
+    this.facing = 'right'
   }
 
   draw(c) {
     // Red square debug code
-    c.fillStyle = 'rgba(255, 0, 0, 0.5)'
-    c.fillRect(this.x, this.y, this.width, this.height)
+    // c.fillStyle = 'rgba(255, 0, 0, 0.5)'
+    // c.fillRect(this.x, this.y, this.width, this.height)
+    if(this.isImageloaded===true){
+      let ScaleX=1
+      let x=this.x
+
+      if(this.facing==='left'){
+        ScaleX=-1
+        x=-this.x - this.width
+      }
+      c.save()
+      c.scale(ScaleX,1)
+      c.drawImage(
+        this.image,
+        this.currentSprite.x + this.currentFrame * this.currentSprite.width,
+        this.currentSprite.y,
+        this.currentSprite.width,
+        this.currentSprite.height,
+        x,
+        this.y,
+        this.width,
+        this.height)
+        c.restore()
+      }
   }
 
   update(deltaTime, collisionBlocks) {
     if (!deltaTime) return
+
+    //updating animation frames
+    this.elapsedTime+=deltaTime
+    const secondsInterval=0.1
+    if(this.elapsedTime>secondsInterval){
+      this.currentFrame=(this.currentFrame+1)% this.currentSprite.frames
+      this.elapsedTime-=secondsInterval
+    }
+
     this.applyGravity(deltaTime)
 
     // Update horizontal position and check collisions
@@ -33,6 +103,36 @@ class Player {
     // Update vertical position and check collisions
     this.updateVerticalPosition(deltaTime)
     this.checkForVerticalCollisions(collisionBlocks)
+
+    this.determineFacingDirection()
+    this.switchSprites()
+  }
+
+  determineFacingDirection(){
+    if(this.velocity.x>0){
+      this.facing='right'
+    }
+    else if(this.velocity.x<0){
+      this.facing='left'
+    }
+  }
+  switchSprites(){
+    if(this.isOnGround && this.velocity.x===0 && this.currentSprite!==this.sprites.idle){
+      this.currentFrame=0
+      this.currentSprite=this.sprites.idle
+    }
+    else if(this.isOnGround && this.velocity.x!==0 && this.currentSprite!==this.sprites.run){
+      this.currentFrame=0
+      this.currentSprite=this.sprites.run
+    }
+    else if(!this.isOnGround && this.velocity.y<0 && this.currentSprite!==this.sprites.jump){
+      this.currentFrame=0
+      this.currentSprite=this.sprites.jump
+    }
+    else if(!this.isOnGround && this.velocity.y>0 && this.currentSprite!==this.sprites.fall){
+      this.currentFrame=0
+      this.currentSprite=this.sprites.fall
+    }
   }
 
   jump() {
