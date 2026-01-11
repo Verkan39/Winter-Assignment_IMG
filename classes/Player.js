@@ -50,12 +50,24 @@ class Player {
     }
     this.currentSprite=this.sprites.run
     this.facing = 'right'
+    this.hitBox={
+      x:0,
+      y:0,
+      width:20,
+      height:20,
+    }
   }
 
   draw(c) {
     // Red square debug code
-    // c.fillStyle = 'rgba(255, 0, 0, 0.5)'
-    // c.fillRect(this.x, this.y, this.width, this.height)
+    // initial hitbox
+    c.fillStyle = 'rgba(255, 0, 0, 0.5)'
+    c.fillRect(this.x, this.y, this.width, this.height)
+
+    //new hitbox
+    c.fillStyle='rgba(0,0,225,0.5)'
+    c.fillRect(this.hitBox.x, this.hitBox.y, this.hitBox.width, this.hitBox.height)
+
     if(this.isImageloaded===true){
       let ScaleX=1
       let x=this.x
@@ -90,6 +102,10 @@ class Player {
       this.currentFrame=(this.currentFrame+1)% this.currentSprite.frames
       this.elapsedTime-=secondsInterval
     }
+
+    //updating hitbox position
+    this.hitBox.x=this.x+6
+    this.hitBox.y=this.y+12
 
     this.applyGravity(deltaTime)
 
@@ -142,10 +158,12 @@ class Player {
 
   updateHorizontalPosition(deltaTime) {
     this.x += this.velocity.x * deltaTime
+    this.hitBox.x+= this.velocity.x * deltaTime
   }
 
   updateVerticalPosition(deltaTime) {
     this.y += this.velocity.y * deltaTime
+    this.hitBox.y+= this.velocity.y * deltaTime
   }
 
   applyGravity(deltaTime) {
@@ -169,20 +187,22 @@ class Player {
 
       // Check if a collision exists on all axes
       if (
-        this.x <= collisionBlock.x + collisionBlock.width &&
-        this.x + this.width >= collisionBlock.x &&
-        this.y + this.height >= collisionBlock.y &&
-        this.y <= collisionBlock.y + collisionBlock.height
+        this.hitBox.x <= collisionBlock.x + collisionBlock.width &&
+        this.hitBox.x + this.hitBox.width >= collisionBlock.x &&
+        this.hitBox.y + this.hitBox.height >= collisionBlock.y &&
+        this.hitBox.y <= collisionBlock.y + collisionBlock.height
       ) {
         // Check collision while player is going left
         if (this.velocity.x < -0) {
-          this.x = collisionBlock.x + collisionBlock.width + buffer
+          this.hitBox.x = collisionBlock.x + collisionBlock.width + buffer
+          this.x=this.hitBox.x -6
           break
         }
 
         // Check collision while player is going right
         if (this.velocity.x > 0) {
-          this.x = collisionBlock.x - this.width - buffer
+          this.hitBox.x = collisionBlock.x - this.hitBox.width - buffer
+          this.x=this.hitBox.x -6
           break
         }
       }
@@ -196,15 +216,16 @@ class Player {
 
       // If a collision exists
       if (
-        this.x <= collisionBlock.x + collisionBlock.width &&
-        this.x + this.width >= collisionBlock.x &&
-        this.y + this.height >= collisionBlock.y &&
-        this.y <= collisionBlock.y + collisionBlock.height
+        this.hitBox.x <= collisionBlock.x + collisionBlock.width &&
+        this.hitBox.x + this.hitBox.width >= collisionBlock.x &&
+        this.hitBox.y + this.hitBox.height >= collisionBlock.y &&
+        this.hitBox.y <= collisionBlock.y + collisionBlock.height
       ) {
         // Check collision while player is going up
         if (this.velocity.y < 0) {
           this.velocity.y = 0
-          this.y = collisionBlock.y + collisionBlock.height + buffer
+          this.hitBox.y = collisionBlock.y + collisionBlock.height + buffer
+          this.y=this.hitBox.y -12
           break
         }
 
@@ -212,6 +233,7 @@ class Player {
         if (this.velocity.y > 0) {
           this.velocity.y = 0
           this.y = collisionBlock.y - this.height - buffer
+          this.hitBox.y=collisionBlock.y - this.hitBox.height - buffer
           this.isOnGround = true
           break
         }

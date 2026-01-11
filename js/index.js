@@ -123,6 +123,50 @@ const player = new Player({
   velocity: { x: 0, y: 0 },
 })
 
+const hearts=[
+  new Heart({
+    x:10,
+    y:10,
+    width:21,
+    height:18,
+    imageSrc:'./images/hearts.png',
+    spriteCropbox :{
+      x: 0,
+      y: 0,
+      width: 21,
+      height: 18,
+      frames: 6,
+    },
+  }),
+  new Heart({
+    x:34,
+    y:10,
+    width:21,
+    height:18,
+    imageSrc:'./images/hearts.png',
+    spriteCropbox :{
+      x: 0,
+      y: 0,
+      width: 21,
+      height: 18,
+      frames: 6,
+    },
+  }),
+  new Heart({
+    x:56,
+    y:10,
+    width:21,
+    height:18,
+    imageSrc:'./images/hearts.png',
+    spriteCropbox :{
+      x: 0,
+      y: 0,
+      width: 21,
+      height: 18,
+      frames: 6,
+    },
+  })
+]
 const keys = {
   w: {
     pressed: false,
@@ -174,6 +218,11 @@ function animate(backgroundCanvas) {
 
   c.drawImage(backgroundCanvas, 0, 0)
   player.draw(c)
+
+  for(let i=hearts.length-1;i>=0;i--){
+    const heart = hearts[i]
+    heart.draw(c)
+  }
   // c.fillRect(SCROLL_POST_X,150,10,200)
   // c.fillRect(300,SCROLL_POST_Y,100,10)
   // c.fillRect(300,SCROLL_POST_B,100,10)

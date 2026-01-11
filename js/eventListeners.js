@@ -1,13 +1,16 @@
 window.addEventListener('keydown', (event) => {
   switch (event.key) {
     case 'w':
+    case 'ArrowUp':
       player.jump()
       keys.w.pressed = true
       break
     case 'a':
+    case 'ArrowLeft':
       keys.a.pressed = true
       break
     case 'd':
+    case 'ArrowRight':
       keys.d.pressed = true
       break
   }
@@ -16,9 +19,11 @@ window.addEventListener('keydown', (event) => {
 window.addEventListener('keyup', (event) => {
   switch (event.key) {
     case 'a':
+    case 'ArrowLeft':
       keys.a.pressed = false
       break
     case 'd':
+    case 'ArrowRight':
       keys.d.pressed = false
       break
   }
