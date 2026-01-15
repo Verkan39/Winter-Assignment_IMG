@@ -190,6 +190,8 @@ const SCROLL_POST_X=500
 const SCROLL_POST_Y=100
 const SCROLL_POST_B=200
 
+const SCROLL_POST_End=2760
+
 const new_Scroll_post_x=2320
 function animate(backgroundCanvas) {
   // Calculate delta time
@@ -206,13 +208,20 @@ function animate(backgroundCanvas) {
   const scrollPostDistance=player.x - SCROLL_POST_X
   camera.x=scrollPostDistance
   }
-  if(player.y < SCROLL_POST_Y && camera.y >0){
-  const scrollPostDistance=SCROLL_POST_Y - player.y
-  camera.y=scrollPostDistance
-  }
-  if(player.y> SCROLL_POST_B){
-  const scrollPostDistance=player.y - SCROLL_POST_B
-  camera.y=-scrollPostDistance
+  // if(player.y < SCROLL_POST_Y && camera.y >0){
+  // const scrollPostDistance=SCROLL_POST_Y - player.y
+  // camera.y=scrollPostDistance
+  // }
+  // if(player.y> SCROLL_POST_B){
+  // const scrollPostDistance=player.y - SCROLL_POST_B
+  // camera.y=-scrollPostDistance
+  // }
+
+  console.log(player.x, player.y);
+
+  if(player.x>=SCROLL_POST_End){
+    const game_ended_modal=document.getElementById('game_completed')
+    game_ended_modal.classList.add('active')
   }
   // Render scene
   c.save()
@@ -224,10 +233,10 @@ function animate(backgroundCanvas) {
   c.drawImage(backgroundCanvas, 0, 0)
   player.draw(c)
 
-  for(let i=hearts.length-1;i>=0;i--){
-    const heart = hearts[i]
-    heart.draw(c)
-  }
+  // for(let i=hearts.length-1;i>=0;i--){
+  //   const heart = hearts[i]
+  //   heart.draw(c)
+  // }
   // c.fillRect(new_Scroll_post_x,150,10,200)
   // c.fillRect(300,SCROLL_POST_Y,100,10)
   // c.fillRect(300,SCROLL_POST_B,100,10)

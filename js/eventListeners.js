@@ -1,3 +1,11 @@
+document.addEventListener('DOMContentLoaded', () => {
+  const start_modal = document.getElementById('game_starter');
+  const start_button = document.getElementById('start');
+
+  start_button.addEventListener('click', () => {
+    start_modal.classList.add('deactive');
+
+
 window.addEventListener('keydown', (event) => {
   switch (event.key) {
     case 'w':
@@ -29,6 +37,15 @@ window.addEventListener('keyup', (event) => {
       break
   }
 })
+});
+  const play_again_button = document.getElementById('play-again');
+play_again_button.addEventListener('click',()=>{
+  window.location.reload();
+});
+});
+
+
+
 
 // On return to game's tab, ensure delta time is reset
 document.addEventListener('visibilitychange', () => {

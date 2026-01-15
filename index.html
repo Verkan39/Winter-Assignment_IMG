@@ -4,34 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My first game</title>
-  <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font: inherit;
-  vertical-align: baseline;
-}
-/* body {
-  background: black;
-  margin: 0;
-} */
-html, body {
-  margin: 0;
-  padding: 0;
-  /* width: 100%;
-  height: 100%; */
-  overflow: hidden;
-  background-color: aqua;
-}
-
-canvas {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-</style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 <canvas style="image-rendering: pixelated"></canvas>
 <script src="./data/l_New_Layer_1.js"></script>
 <script src="./data/l_New_Layer_2.js"></script>
@@ -49,5 +25,21 @@ canvas {
 <script src="./js/eventListeners.js"></script>
 </head>
 <body>
+  <div id="game_starter" class="modal_container">
+    <div id="modal1">
+      <h1>Hey there! Welcome to my game!</h1>
+      <p>The story is basic dude, there is Hex, just got bored of his house, wants to get to his friends place. Ah! Isn't that simple as you thought, there are hurdles, road breaks, flying platforms. He needs your help to get there.</p>
+      <h2>Are you ready?</h2>
+      <p>You can use the 'w','a','d' keys, or the arrow keys, and for a special addition, you can jump with the space as well!</p>
+      <button id="start">Let's Go!</button>
+    </div>
+  </div>
+  <div id="game_completed" class="modal_container">
+    <div id="modal2">
+      <h1>Congratulations!! You helped Hex successfully!</h1>
+      <p>Hex:"Thanks dude, I am at my friends place finally"</p>
+      <button id="play-again">Play Again !</button>
+    </div>
+  </div>
 </body>
 </html>
