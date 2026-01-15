@@ -5,6 +5,8 @@ const dpr = window.devicePixelRatio || 1
 canvas.width = 1024 * dpr
 canvas.height = 576 * dpr
 
+console.log(canvas.width);
+
 const layersData = {
    l_New_Layer_1: l_New_Layer_1,
    l_New_Layer_2: l_New_Layer_2,
@@ -187,6 +189,8 @@ const camera={
 const SCROLL_POST_X=500
 const SCROLL_POST_Y=100
 const SCROLL_POST_B=200
+
+const new_Scroll_post_x=2320
 function animate(backgroundCanvas) {
   // Calculate delta time
   const currentTime = performance.now()
@@ -198,7 +202,7 @@ function animate(backgroundCanvas) {
   player.update(deltaTime, collisionBlocks)
 
   //Track Scroll post distance
-  if(player.x > SCROLL_POST_X){
+  if(player.x > SCROLL_POST_X && player.x< new_Scroll_post_x){
   const scrollPostDistance=player.x - SCROLL_POST_X
   camera.x=scrollPostDistance
   }
@@ -212,6 +216,7 @@ function animate(backgroundCanvas) {
   }
   // Render scene
   c.save()
+  // c.scale(dpr+1, dpr+1)
 
   c.setTransform(dpr, 0, 0, dpr, -camera.x * dpr, camera.y * dpr)
   c.clearRect(camera.x,-camera.y,canvas.width / dpr,canvas.height / dpr)
@@ -223,7 +228,7 @@ function animate(backgroundCanvas) {
     const heart = hearts[i]
     heart.draw(c)
   }
-  // c.fillRect(SCROLL_POST_X,150,10,200)
+  // c.fillRect(new_Scroll_post_x,150,10,200)
   // c.fillRect(300,SCROLL_POST_Y,100,10)
   // c.fillRect(300,SCROLL_POST_B,100,10)
   c.restore()

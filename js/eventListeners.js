@@ -2,6 +2,7 @@ window.addEventListener('keydown', (event) => {
   switch (event.key) {
     case 'w':
     case 'ArrowUp':
+    case ' ':
       player.jump()
       keys.w.pressed = true
       break

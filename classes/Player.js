@@ -61,12 +61,12 @@ class Player {
   draw(c) {
     // Red square debug code
     // initial hitbox
-    c.fillStyle = 'rgba(255, 0, 0, 0.5)'
-    c.fillRect(this.x, this.y, this.width, this.height)
+    // c.fillStyle = 'rgba(255, 0, 0, 0.5)'
+    // c.fillRect(this.x, this.y, this.width, this.height)
 
-    //new hitbox
-    c.fillStyle='rgba(0,0,225,0.5)'
-    c.fillRect(this.hitBox.x, this.hitBox.y, this.hitBox.width, this.hitBox.height)
+    // //new hitbox
+    // c.fillStyle='rgba(0,0,225,0.5)'
+    // c.fillRect(this.hitBox.x, this.hitBox.y, this.hitBox.width, this.hitBox.height)
 
     if(this.isImageloaded===true){
       let ScaleX=1
