@@ -37,14 +37,20 @@ window.addEventListener('keyup', (event) => {
       break
   }
 })
+
 });
   const play_again_button = document.getElementById('play-again');
 play_again_button.addEventListener('click',()=>{
   window.location.reload();
 });
+const fail_play_again_button=document.getElementById('fail');
+fail_play_again_button.addEventListener('click',()=>{
+  window.location.reload();});
+
+const failed_play_again_button=document.getElementById('failed');
+failed_play_again_button.addEventListener('click',()=>{
+  window.location.reload();});
 });
-
-
 
 
 // On return to game's tab, ensure delta time is reset

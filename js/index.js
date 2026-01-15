@@ -192,6 +192,9 @@ const SCROLL_POST_B=200
 
 const SCROLL_POST_End=2760
 
+const Scroll_end_lowery=270
+const Scroll_upper_y=15
+
 const new_Scroll_post_x=2320
 function animate(backgroundCanvas) {
   // Calculate delta time
@@ -223,6 +226,16 @@ function animate(backgroundCanvas) {
     const game_ended_modal=document.getElementById('game_completed')
     game_ended_modal.classList.add('active')
   }
+
+  if(player.y>=Scroll_end_lowery){
+    const game_fail_modal=document.getElementById('game_fail')
+    game_fail_modal.classList.add('active')
+  }
+
+  if(player.y<=Scroll_upper_y){
+    const game_fail2_modal=document.getElementById('game_fail2')
+    game_fail2_modal.classList.add('active')
+  }
   // Render scene
   c.save()
   // c.scale(dpr+1, dpr+1)
@@ -240,6 +253,8 @@ function animate(backgroundCanvas) {
   // c.fillRect(new_Scroll_post_x,150,10,200)
   // c.fillRect(300,SCROLL_POST_Y,100,10)
   // c.fillRect(300,SCROLL_POST_B,100,10)
+  // c.fillRect(0,Scroll_end_lowery,SCROLL_POST_End,10)
+  // c.fillRect(0,Scroll_upper_y,SCROLL_POST_End,10)
   c.restore()
 
   requestAnimationFrame(() => animate(backgroundCanvas))
