@@ -1,9 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
   const start_modal = document.getElementById('game_starter');
   const start_button = document.getElementById('start');
+  const bg_music=document.getElementById('bg_music');
+  const jump_sound=document.getElementById('jumpsound');
 
   start_button.addEventListener('click', () => {
     start_modal.classList.add('deactive');
+    bg_music.play();
+
 
 
 window.addEventListener('keydown', (event) => {
@@ -13,6 +17,7 @@ window.addEventListener('keydown', (event) => {
     case ' ':
       player.jump()
       keys.w.pressed = true
+      jump_sound.play();
       break
     case 'a':
     case 'ArrowLeft':
@@ -41,7 +46,7 @@ window.addEventListener('keyup', (event) => {
 });
   const play_again_button = document.getElementById('play-again');
 play_again_button.addEventListener('click',()=>{
-  window.location.reload();
+  window.location.reload(); 
 });
 const fail_play_again_button=document.getElementById('fail');
 fail_play_again_button.addEventListener('click',()=>{

@@ -194,7 +194,7 @@ const SCROLL_POST_End=2760
 
 const Scroll_end_lowery=270
 const Scroll_upper_y=15
-
+const isGameOn=true;
 const new_Scroll_post_x=2320
 function animate(backgroundCanvas) {
   // Calculate delta time
@@ -203,8 +203,10 @@ function animate(backgroundCanvas) {
   lastTime = currentTime
 
   // Update player position
+  if(isGameOn){
   player.handleInput(keys)
   player.update(deltaTime, collisionBlocks)
+  }
 
   //Track Scroll post distance
   if(player.x > SCROLL_POST_X && player.x< new_Scroll_post_x){
@@ -221,20 +223,31 @@ function animate(backgroundCanvas) {
   // }
 
   console.log(player.x, player.y);
-
+  const bg_music=document.getElementById('bg_music');
+  const game_won=document.getElementById('game_win');
+  const game_over=document.getElementById('game_over');
   if(player.x>=SCROLL_POST_End){
     const game_ended_modal=document.getElementById('game_completed')
     game_ended_modal.classList.add('active')
+    bg_music.pause();
+    game_won.play();
+    isGameOn=false;
   }
 
   if(player.y>=Scroll_end_lowery){
     const game_fail_modal=document.getElementById('game_fail')
     game_fail_modal.classList.add('active')
+    bg_music.pause();
+    game_over.play();
+    isGameOn=false;
   }
 
   if(player.y<=Scroll_upper_y){
     const game_fail2_modal=document.getElementById('game_fail2')
     game_fail2_modal.classList.add('active')
+    bg_music.pause();
+    game_over.play();
+    isGameOn=false;
   }
   // Render scene
   c.save()
