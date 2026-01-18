@@ -8,6 +8,8 @@ class Player {
     this.y = y
     this.width = size
     this.height = size
+    this.maxJumps=3;
+    this.jumpCount=0;
     this.velocity = velocity
     this.isOnGround = false
     this.isImageloaded=false
@@ -152,10 +154,14 @@ class Player {
   }
 
   jump() {
-    this.velocity.y = -JUMP_POWER
-    this.isOnGround = false
+    if(this.jumpCount<this.maxJumps){
+      if(this.jumpCount==1) this.velocity.y=-JUMP_POWER*0.9
+      else if(this.jumpCount==2) this.velocity.y=-JUMP_POWER*0.7
+      else this.velocity.y = -JUMP_POWER  
+      this.jumpCount++
+      this.isOnGround=false
+    }
   }
-
   updateHorizontalPosition(deltaTime) {
     this.x += this.velocity.x * deltaTime
     this.hitBox.x+= this.velocity.x * deltaTime
@@ -235,6 +241,7 @@ class Player {
           this.y = collisionBlock.y - this.height - buffer
           this.hitBox.y=collisionBlock.y - this.hitBox.height - buffer
           this.isOnGround = true
+          this.jumpCount=0;
           break
         }
       }
@@ -248,6 +255,7 @@ class Player {
         this.velocity.y = 0
         this.y = platform.y - this.height - buffer
         this.isOnGround = true
+        this.jumpCount=0;
         return
       }
     }

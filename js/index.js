@@ -119,7 +119,7 @@ offscreenCanvas.height = MAP_HEIGHT
 
 // Change xy coordinates to move player's default position
 const player = new Player({
-  x: 100,
+  x: 40,
   y: 100,
   size: 32,
   velocity: { x: 0, y: 0 },
@@ -192,10 +192,17 @@ const SCROLL_POST_B=200
 
 const SCROLL_POST_End=2760
 
+const Scroll_start=0
+
 const Scroll_end_lowery=270
 const Scroll_upper_y=15
 const isGameOn=true;
 const new_Scroll_post_x=2320
+
+const game_started=document.getElementById('start');
+// game_started.addEventListener('click',()=>{
+//   isGameOn=true;
+// })
 function animate(backgroundCanvas) {
   // Calculate delta time
   const currentTime = performance.now()
@@ -234,7 +241,7 @@ function animate(backgroundCanvas) {
     isGameOn=false;
   }
 
-  if(player.y>=Scroll_end_lowery){
+  if(isGameOn==true && player.y>=Scroll_end_lowery){
     const game_fail_modal=document.getElementById('game_fail')
     game_fail_modal.classList.add('active')
     bg_music.pause();
@@ -248,6 +255,10 @@ function animate(backgroundCanvas) {
     bg_music.pause();
     game_over.play();
     isGameOn=false;
+  }
+
+  if(player.x<Scroll_start){
+    player.x=Scroll_start;
   }
   // Render scene
   c.save()
@@ -268,6 +279,7 @@ function animate(backgroundCanvas) {
   // c.fillRect(300,SCROLL_POST_B,100,10)
   // c.fillRect(0,Scroll_end_lowery,SCROLL_POST_End,10)
   // c.fillRect(0,Scroll_upper_y,SCROLL_POST_End,10)
+  // c.fillRect(Scroll_start,0,10,600)
   c.restore()
 
   requestAnimationFrame(() => animate(backgroundCanvas))
